@@ -1,21 +1,18 @@
-function vulnerableQuery(userId) {
-  // Intentionally insecure SQL query (mimic vulnerability)
-  const query = `SELECT * FROM users WHERE id = '${userId}'`;  // SQL injection risk
-  console.log(query);
-}
+import React, { useState } from "react";
 
 function App() {
-  const handleClick = () => {
-    const userId = document.getElementById('userId').value;
-    vulnerableQuery(userId);  // Mimicking a user input vulnerability
+  const [userInput, setUserInput] = useState("");
+
+  const handleInputChange = (e) => {
+    setUserInput(e.target.value);
   };
 
+  // Potential XSS vulnerability using innerHTML
   return (
-    <div className="App">
-      <header className="App-header">
-        <input id="userId" type="text" placeholder="Enter user ID" />
-        <button onClick={handleClick}>Submit</button>
-      </header>
+    <div>
+      <h1>Security Vulnerability Demo</h1>
+      <input type="text" onChange={handleInputChange} />
+      <p dangerouslySetInnerHTML={{ __html: userInput }} />
     </div>
   );
 }
