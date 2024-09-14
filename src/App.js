@@ -7,7 +7,8 @@ function App() {
     setUserInput(e.target.value);
   };
 
-  // Potential XSS vulnerability using innerHTML
+  // Potential XSS vulnerability using innerHTML 
+  //test
   return (
     <div>
       <h1>Security Vulnerability Demo</h1>
