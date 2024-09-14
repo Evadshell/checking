@@ -1,0 +1,43 @@
+name: Security Check Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  security_check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: SQLMap Security Test
+      run: |
+        sudo apt-get install -y sqlmap
+        # Run SQLMap test against vulnerable API endpoint (modify this as needed)
+        sqlmap -u "http://localhost:3000/users?id=1" --batch --risk=3 --level=5
+    
+    - name: Run security analysis (ESLint, etc.)
+      run: npm run lint
+
+    - name: Run tests
+      run: npm test
+
+    - name: Fail if vulnerabilities found
+      if: failure()
+      run: |
+        echo "Security vulnerabilities detected. Failing the pipeline."
+        exit 1

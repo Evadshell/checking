@@ -1,22 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+function vulnerableQuery(userId) {
+  // Intentionally insecure SQL query (mimic vulnerability)
+  const query = `SELECT * FROM users WHERE id = '${userId}'`;  // SQL injection risk
+  console.log(query);
+}
 
 function App() {
+  const handleClick = () => {
+    const userId = document.getElementById('userId').value;
+    vulnerableQuery(userId);  // Mimicking a user input vulnerability
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <input id="userId" type="text" placeholder="Enter user ID" />
+        <button onClick={handleClick}>Submit</button>
       </header>
     </div>
   );
