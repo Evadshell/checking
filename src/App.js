@@ -9,6 +9,7 @@ function App() {
 
   // Potential XSS vulnerability using innerHTML 
   //test
+  //test2
   return (
     <div>
       <h1>Security Vulnerability Demo</h1>
